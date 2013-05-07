@@ -1,0 +1,27 @@
+#!/user/bin/env ruby
+
+require "testraf"
+
+command = ARGV[0]
+if command == nil
+  puts "USAGE"
+  puts "testraf <command> <options>"
+  puts ""
+  puts "OPTIONS"
+  puts "-c : Continues testing even if a testset fails"
+
+  exit
+end
+
+options = {}
+ARGV.shift
+ARGV.each do |arg|
+  case arg
+    when "-c"
+      options[:c] = true
+    else
+      puts "Unknown flag #{arg}"
+  end
+end
+
+Testraf.new.run(command, options)
