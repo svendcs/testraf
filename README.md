@@ -1,6 +1,6 @@
 Testraf
 =======
-Everybody knows that the giraffe is superior to the walrus. The king of the animals, the giraffe, has therefor come to your aid in testing solutions for informatics competitions. 
+Everybody knows that the giraffe is superior to the walrus. The king of the animals, the giraffe, has therefore come to your aid in testing solutions for informatics competitions. 
 
 Install using `gem install testraf`
 
