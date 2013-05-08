@@ -17,16 +17,19 @@ class Testraf
     end
   end
 
-  def input_files
-    files ||= list_files(/\d+\.in$/)
-
+  def sort_files(files)
     files.sort do |x, y|
       file_id(x) <=> file_id(y)
     end
   end
 
+  def input_files
+    files ||= sort_files list_files(/\d+\.in$/)
+  end
+
   def output_file(input_file)
-    file_name = file_id(input_file).to_s + ".out"
+    file_name = input_file.gsub '.in', '.out'
+
     if File.exists?(file_name)
       file_name
     else
