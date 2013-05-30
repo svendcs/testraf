@@ -16,7 +16,7 @@ The expected output is in the output file and the input is contained in the inpu
 The `testraf` command currently has the following options:
 * -c, --continue: Continues testing even if a testset fails
 * -o, --output FILE: Outputs the test results into a CSV file
-* -n, --number COUNT: The number of tests to run
+* -n, --number COUNT: The maximum number of tests to run
 
 ## Screenshots
 ![Screenshot 1](http://i.imgur.com/h1Vuk8m.png)
