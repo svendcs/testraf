@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.email       = 'svendcsvendsen@gmail.com'
   s.files       = ["lib/testraf.rb", "lib/testraf/command.rb", "lib/testraf/report.rb", "lib/testraf/test.rb"]
   s.executables << "testraf"
-  s.add_dependency('colorize')
-  s.add_dependency('open4')
+  #s.add_dependency('colorize')
+  #s.add_dependency('open4')
   s.homepage    =
     'http://rubygems.org/gems/testraf'
 end

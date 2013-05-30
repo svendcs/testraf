@@ -1,27 +1,20 @@
 #!/user/bin/env ruby
 
 require "testraf"
-
-command = ARGV[0]
-if command == nil
-  puts "USAGE"
-  puts "testraf <command> <options>"
-  puts ""
-  puts "OPTIONS"
-  puts "-c : Continues testing even if a testset fails"
-
-  exit
-end
+require "optparse"
 
 options = {}
-ARGV.shift
-ARGV.each do |arg|
-  case arg
-    when "-c"
-      options[:c] = true
-    else
-      puts "Unknown flag #{arg}"
+OptionParser.new do |opts|
+  opts.banner = "Usage: testraf [command] [options]"
+  opts.on("-c", "--continue", "Continues testing even if a testset fails") do
+    options[:continue] = true
   end
-end
+  # opts.on("-d", "--directory DIR", "Specifies a test directory") do |dir|
+  #   options[:directory] = dir
+  # end
+end.parse!
 
-Testraf.new.run(command, options)
+ARGV.each do |command|
+  puts "Running command".green
+  Testraf.new.run(command, options)
+end
