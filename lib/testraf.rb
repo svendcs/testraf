@@ -60,7 +60,7 @@ class Testraf
       if(report.exit_status.to_i != 0)
         puts "---> Test #{file_id input_file} (#{report.run_time}s)".red
         puts "Program exited with status #{report.exit_status}".yellow
-        break unless options[:c]
+        break unless options[:continue]
       elsif(test.compare_output report.output)
         puts "---> Test #{file_id input_file} (#{report.run_time}s)".green
       else
