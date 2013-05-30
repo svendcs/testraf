@@ -13,14 +13,14 @@ Testraf is run using the `testraf` command. The command scans the working direct
 The expected output is in the output file and the input is contained in the input file. Simply run testraf with the command to run your solution, then the input data will be piped into the standard input of your program. By reading from the standard output, testraf will then examine the generated output.
 
 ## Options
-Usage: testraf [command] [options]
-    -c, --continue                   Continues testing even if a testset fails
-    -o, --output FILE                Outputs the test results into a CSV file
-    -n, --number COUNT               The number of tests to run
+The `testraf` command currently has the following options:
+* -c, --continue: Continues testing even if a testset fails
+* -o, --output FILE: Outputs the test results into a CSV file
+* -n, --number COUNT: The number of tests to run
 
 ## Screenshots
-![](http://i.imgur.com/h1Vuk8m.png)
-![](http://i.imgur.com/wlS00sb.png)
+![Screenshot 1](http://i.imgur.com/h1Vuk8m.png)
+![Screenshot 2](http://i.imgur.com/wlS00sb.png)
 
 ## Planned
 * Nothing - Deal with it!
