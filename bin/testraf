@@ -4,14 +4,21 @@ require "testraf"
 require "optparse"
 
 options = {}
+options[:output] = nil
+options[:test_count] = nil
 OptionParser.new do |opts|
   opts.banner = "Usage: testraf [command] [options]"
   opts.on("-c", "--continue", "Continues testing even if a testset fails") do
     options[:continue] = true
   end
-  # opts.on("-d", "--directory DIR", "Specifies a test directory") do |dir|
-  #   options[:directory] = dir
-  # end
+
+  opts.on("-o", "--output FILE", "Outputs the test results into a CSV file") do |file|
+    options[:output] = file
+  end
+
+  opts.on("-n", "--number COUNT", "The number of tests to run") do |count|
+    options[:test_count] = count.to_i
+  end
 end.parse!
 
 ARGV.each do |command|

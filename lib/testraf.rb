@@ -1,14 +1,11 @@
 require 'testraf/command'
 require 'testraf/test'
 require 'colorize'
+require 'csv'
 
 class Testraf
   def initialize()
 
-  end
-
-  def pwd
-    @pwd ||= `pwd`.strip
   end
 
   def list_files(reg_exp)
@@ -23,8 +20,12 @@ class Testraf
     end
   end
 
+  def pwd
+    @pwd ||= `pwd`.strip
+  end
+
   def input_files
-    files ||= sort_files list_files(/\d+\.in$/)
+    files ||= sort_files list_files(/\d+\.in$/).map
   end
 
   def output_file(input_file)
@@ -45,10 +46,17 @@ class Testraf
     command = Command.new(command)
     #puts command.run("hej")
 
+    output = []
+    output << ["Status", "Input", "Output", "Correct?", "Time"]
+    tests_run = 0
+
     input_files.each do |input_file|
+      tests_run += 1
+      break if options[:test_count] && tests_run > options[:test_count]
       if output_file(input_file) == nil
         puts "---> Test #{file_id input_file}".red
         puts "Missing expected output data".yellow
+        output << ["MISSING DATA"] if options[:output]
         next
       end
 
@@ -60,9 +68,12 @@ class Testraf
       if(report.exit_status.to_i != 0)
         puts "---> Test #{file_id input_file} (#{report.run_time}s)".red
         puts "Program exited with status #{report.exit_status}".yellow
+
+        output << ["EXIT"] if options[:output]
         break unless options[:continue]
       elsif(test.compare_output report.output)
         puts "---> Test #{file_id input_file} (#{report.run_time}s)".green
+        output << ["FINISHED", input.strip, report.output.strip, "true", report.run_time] if options[:output]
       else
         puts "---> Test #{file_id input_file} (#{report.run_time}s)".red
         puts "Input".yellow
@@ -71,7 +82,17 @@ class Testraf
         puts expected.strip[0..50], "\n"
         puts "Output".yellow
         puts report.output[0..50]
+
+        output << ["FINISHED", input.strip, report.output.strip, "false", report.run_time] if options[:output]
         break unless options[:c]
+      end
+    end
+
+    if options[:output]
+      CSV.open(options[:output], "wb") do |csv|
+        output.each do |row|
+          csv << row
+        end
       end
     end
   end
